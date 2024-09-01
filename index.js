@@ -1,5 +1,5 @@
 // index.js
-let items = ["1","2"];
+let items = [];
 
 const itemsDiv = document.getElementById("items")
 const input = document.getElementById("ItemInput")
