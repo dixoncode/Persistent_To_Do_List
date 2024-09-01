@@ -2,6 +2,7 @@
 let items = ["1","2"];
 
 const itemsDiv = document.getElementById("items")
+const input = document.getElementById("ItemInput")
 
 function renderItems() {
     itemsDiv.innerHTML = null;
@@ -26,13 +27,20 @@ function renderItems() {
     }
 }
 
-renderItems()
-
 function loadItems() {}
 
 function saveItems() {}
 
-function addItem() {}
+function addItem() {
+    const value = input.value;
+    if (!value) {
+        alert ("You canot add and empty item")
+        return
+    }
+    items.push(value)
+    renderItems()
+    input.value = ""
+}
 
 function removeItem(idx) {
     items.splice(idx)
