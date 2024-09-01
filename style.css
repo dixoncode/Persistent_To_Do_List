@@ -1,12 +1,35 @@
-/* styling */
+/* Center heading */
 .center-heading {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-bottom: 20px;
 }
 
+/* Center items heading */
 .center-items {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-bottom: 10px;
+}
+
+/* Center the table on the page */
+#todoTable {
+    margin-left: auto;
+    margin-right: auto;
+    border-collapse: collapse;
+}
+
+#todoTable th, #todoTable td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#todoTable th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: center;
+    background-color: #4CAF50;
+    color: white;
 }
