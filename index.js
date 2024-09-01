@@ -1,60 +1,63 @@
-// index.js
 let items = [];
-
-const itemsDiv = document.getElementById("items")
-const input = document.getElementById("ItemInput")
-const storageKey = "items"
+const storageKey = "items";
+const todoTable = document.getElementById("todoTable");
+const inputRow = document.getElementById("inputRow");
+const input = document.getElementById("ItemInput");
 
 function renderItems() {
-    itemsDiv.innerHTML = null;
+    // Clear all rows except the input row
+    const rows = todoTable.querySelectorAll("tbody tr");
+    rows.forEach(row => {
+        if (row !== inputRow) row.remove();
+    });
 
-    for (const [idx, item] of Object.entries(items)) {
-        const container = document.createElement("div")
-        container.style.marginBottom = "10px"
+    // Render each item
+    items.forEach((item, idx) => {
+        const row = document.createElement("tr");
 
-        const text = document.createElement("p")
-        text.style.display ="inline"
-        text.style.marginRight ="10px"
-        text.textContent = item;
+        const itemCell = document.createElement("td");
+        itemCell.textContent = item;
 
-        const button = document.createElement("button")
-        button.textContent = "Delete"
-        button.onclick = () => removeItem(idx)
+        const actionCell = document.createElement("td");
+        const deleteButton = document.createElement("button");
+        deleteButton.textContent = "Delete";
+        deleteButton.onclick = () => removeItem(idx);
 
-        container.appendChild(text)
-        container.appendChild(button)
+        actionCell.appendChild(deleteButton);
+        row.appendChild(itemCell);
+        row.appendChild(actionCell);
 
-        itemsDiv.appendChild(container)
-    }
+        inputRow.before(row);
+    });
 }
 
 function loadItems() {
-    const oldItems= localStorage.getItem(storageKey);
-    if (oldItems) items = JSON.parse(oldItems)
-    renderItems()
+    const oldItems = localStorage.getItem(storageKey);
+    if (oldItems) items = JSON.parse(oldItems);
+    renderItems();
 }
 
 function saveItems() {
     const stringItems = JSON.stringify(items);
-    localStorage.setItem(storageKey, stringItems)
+    localStorage.setItem(storageKey, stringItems);
 }
 
 function addItem() {
     const value = input.value;
     if (!value) {
-        alert ("You canot add and empty item")
-        return
+        alert("You cannot add an empty item");
+        return;
     }
-    items.push(value)
-    renderItems()
-    input.value = ""
-    saveItems()
+    items.push(value);
+    renderItems();
+    input.value = "";
+    saveItems();
 }
 
 function removeItem(idx) {
-    items.splice(idx, 1)
-    renderItems()
-    saveItems()
+    items.splice(idx, 1);
+    renderItems();
+    saveItems();
 }
 
-document.addEventListener("DOMContentLoaded", loadItems)
+document.addEventListener("DOMContentLoaded", loadItems);
